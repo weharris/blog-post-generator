@@ -27,16 +27,27 @@ def fetch_reference(topic):
     return None, None, None
 
 def create_image(prompt, filename):
+    if not prompt or not isinstance(prompt, str) or len(prompt.strip()) == 0:
+        raise ValueError("Prompt for image generation is invalid.")
+    
+    print(f"[INFO] Generating image with prompt: {prompt}")
+    
     response = client.images.generate(
         model="dall-e-3",
         prompt=prompt,
-        size="1024x768",
+        size="1792x1024",
+        quality="standard",
+        response_format="url",
         n=1
     )
     img_url = response.data[0].url
     img_data = requests.get(img_url).content
+    
+    os.makedirs("images", exist_ok=True)
     with open(f"images/{filename}", 'wb') as handler:
         handler.write(img_data)
+    
+    print(f"[INFO] Image saved as images/{filename}")
 
 def create_markdown(topic, reference_title, reference_url):
     today = datetime.date.today().isoformat()
@@ -44,7 +55,7 @@ def create_markdown(topic, reference_title, reference_url):
     dated_title = f"{today}-{safe_title}"
     image_file = f"{dated_title}.jpg"
 
-    image_prompt = f"Generate a realistic landscape-format image representing the topic: {topic}."
+    image_prompt = f"A small business owner analyzing data charts on a laptop, in a cozy office, realistic stock photo style"
     create_image(image_prompt, image_file)
 
     messages = [
@@ -84,6 +95,7 @@ seo:
     return dated_title, full_content
 
 def save_post(filename, content):
+    os.makedirs("posts", exist_ok=True)
     with open(f"posts/{filename}.md", "w", encoding="utf-8") as f:
         f.write(content)
 

@@ -78,7 +78,7 @@ Write a structured blog post about "{topic}" using the following format:
 - Use examples if helpful
 
 ## Conclusion
-- Wrap up with 1 or 2 relevant services (e.g., AI Implementation, Data Governance, Predictive Modelling)
+- Wrap up discussing 1 or 2 relevant services (e.g., AI Implementation, Data Governance, Regulatory Compliance, Data Analytics Projects, Capacity Building & Training, or Predictive Modelling)
 - Be insightful, not generic
 
 Use Harvard-style citation. Only return markdown content, no YAML or extra formatting.
@@ -110,14 +110,25 @@ seo:
   description: "Explore {topic} through a critical lens, with action-oriented recommendations."
 ---"""
 
-    # Only append our reference if GPT didn't already include a References section
-    if "### References" not in body:
-        body += f"""
+    # Append clean Harvard-style reference only if GPT didn't include one
+    if "### References" not in body and "## References" not in body:
+        access_date = datetime.date.today().strftime("%d %B %Y")
 
+        # Attempt to extract publication year from DuckDuckGo result body
+        year_match = re.search(r'\b(20\d{2})\b', ref_body or "")
+        pub_year = year_match.group(1) if year_match else today[:4]
+
+        # Infer author from domain or fallback
+        domain = re.findall(r"https?://(?:www\.)?([^/]+)", reference_url or "")
+        author = domain[0].split('.')[0].capitalize() if domain else "Source"
+
+        # Clean and format the Harvard-style citation
+        formatted_ref = f"""
 ---\n\n### References
 
-{reference_title} ({today[:4]}) *Accessed via DuckDuckGo*. Available at: <a href="{reference_url}" target="_blank" rel="noopener">{reference_url}</a>
+{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url} [Accessed {access_date}].
 """
+        body += formatted_ref
 
     return dated_title, front_matter + "\n\n" + body
 

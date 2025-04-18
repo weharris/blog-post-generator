@@ -126,7 +126,7 @@ seo:
         formatted_ref = f"""
 ---\n\n### References
 
-{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url} [Accessed {access_date}].
+{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url}.
 """
         body += formatted_ref
 

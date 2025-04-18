@@ -37,10 +37,7 @@ For small businesses looking to embrace AI, services like AI Implementation and 
 
 ### References
 
-McKinsey & Company (2024). The state of AI in early 2024. [online] Available at: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2024 [Accessed 10 Oct. 2023].
+McKinsey & Company (2024). The state of AI in early 2024. [online] Available at: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2024.
 
 ---
 
-### References
-
-The state of AI in early 2024 | McKinsey - McKinsey & Company (2025) *Accessed via DuckDuckGo*. Available at: <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2024" target="_blank" rel="noopener">https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2024</a>

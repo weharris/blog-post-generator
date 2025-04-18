@@ -46,4 +46,4 @@ If Europe wants AI in agriculture to succeed, it must think beyond algorithms. B
 
 ### References
 
-European Commission launches AI-powered agri-innovation strategy (2025) *Accessed via DuckDuckGo*. Available at: <a href="https://ec.europa.eu/info/news/european-commission-launches-ai-agriculture-2025" target="_blank" rel="noopener">https://ec.europa.eu/info/news/european-commission-launches-ai-agriculture-2025</a>
+European Commission launches AI-powered agri-innovation strategy (2025) . Available at: <a href="https://ec.europa.eu/info/news/european-commission-launches-ai-agriculture-2025" target="_blank" rel="noopener">https://ec.europa.eu/info/news/european-commission-launches-ai-agriculture-2025</a>

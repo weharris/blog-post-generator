@@ -37,4 +37,4 @@ While AR has not achieved the ubiquitous presence once predicted, it is prematur
 
 ### References
 
-Marr, B. (2021) 'Future predictions of how virtual reality and augmented reality will reshape our lives', Forbes. Available at: https://www.forbes.com/sites/bernardmarr/2021/06/04/future-predictions-of-how-virtual-reality-and-augmented-reality-will-reshape-our-lives/ (Accessed: 12 October 2023).
+Marr, B. (2021) 'Future predictions of how virtual reality and augmented reality will reshape our lives', Forbes. Available at: https://www.forbes.com/sites/bernardmarr/2021/06/04/future-predictions-of-how-virtual-reality-and-augmented-reality-will-reshape-our-lives/.

@@ -33,4 +33,4 @@ While the path to net zero by 2050 is fraught with challenges, strategic impleme
 
 ### References
 
-McKinsey, 2023. *Net zero: climate-driven investments rise | McKinsey - McKinsey & Company*. [online] Available at: <https://www.mckinsey.com/capabilities/sustainability/our-insights/how-incumbents-can-succeed-in-climate-driven-growth-investments> [Accessed 23 Oct. 2023].
+McKinsey, 2023. *Net zero: climate-driven investments rise | McKinsey - McKinsey & Company*. Available at: <https://www.mckinsey.com/capabilities/sustainability/our-insights/how-incumbents-can-succeed-in-climate-driven-growth-investments>.

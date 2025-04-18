@@ -35,12 +35,8 @@ The EU's regulatory approach to AI faces several key challenges and developments
 
 As the EU continues to refine its AI regulatory framework, businesses and developers must adapt to this evolving landscape. Services like AI Implementation and Data Governance become increasingly critical, helping organizations navigate compliance while leveraging AI's full potential. AI Implementation services can assist in integrating AI solutions that adhere to EU regulations, ensuring ethical and effective deployment. Meanwhile, Data Governance frameworks are essential for maintaining data integrity and security, aligning with the EU's emphasis on privacy and consumer rights. By strategically embracing these services, organizations can thrive in an AI-regulated future, balancing innovation with ethical responsibility.
 
-**References**
-
-European Commission, 2023. The Commission publishes guidelines on AI system definition to facilitate the first AI Act's rules application. [online] Available at: <https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application> [Accessed 10 October 2023].
-
----
-
 ### References
 
-The Commission publishes guidelines on AI system definition to ... (2025) *Accessed via DuckDuckGo*. Available at: <a href="https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" target="_blank" rel="noopener">https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application</a>
+European Commission, 2023. The Commission publishes guidelines on AI system definition to facilitate the first AI Act's rules application. Available at: <https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application>.
+
+---

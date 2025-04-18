@@ -1,7 +1,6 @@
 import os
 import re
 import datetime
-import requests
 from openai import OpenAI
 from dotenv import load_dotenv
 from duckduckgo_search import DDGS
@@ -26,37 +25,10 @@ def fetch_reference(topic):
             return results[0]["title"], results[0]["href"], results[0]["body"]
     return None, None, None
 
-def create_image(prompt, filename):
-    if not prompt or not isinstance(prompt, str) or len(prompt.strip()) == 0:
-        raise ValueError("Prompt for image generation is invalid.")
-    
-    print(f"[INFO] Generating image with prompt: {prompt}")
-    
-    response = client.images.generate(
-        model="dall-e-3",
-        prompt=prompt,
-        size="1792x1024",
-        quality="standard",
-        response_format="url",
-        n=1
-    )
-    img_url = response.data[0].url
-    img_data = requests.get(img_url).content
-    
-    os.makedirs("images", exist_ok=True)
-    with open(f"images/{filename}", 'wb') as handler:
-        handler.write(img_data)
-    
-    print(f"[INFO] Image saved as images/{filename}")
-
 def create_markdown(topic, reference_title, reference_url):
     today = datetime.date.today().isoformat()
     safe_title = re.sub(r'[^a-zA-Z0-9-]', '', topic.lower().replace(' ', '-'))
     dated_title = f"{today}-{safe_title}"
-    image_file = f"{dated_title}.jpg"
-
-    image_prompt = f"A small business owner analyzing data charts on a laptop, in a cozy office, realistic stock photo style"
-    create_image(image_prompt, image_file)
 
     messages = [
         {
@@ -80,7 +52,6 @@ def create_markdown(topic, reference_title, reference_url):
     front_matter = f"""---
 title: "{topic}"
 excerpt: "Auto-generated article on {topic} using GPT-4o"
-featuredImage: "./images/{image_file}"
 publishDate: "{today}"
 publish: true
 categories: ["Artificial Intelligence", "Technology"]

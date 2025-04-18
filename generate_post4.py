@@ -109,14 +109,16 @@ seo:
   description: "Explore {topic} through a critical lens, with action-oriented recommendations."
 ---"""
 
-    references = f"""
+    # Only append our reference if GPT didn't already include a References section
+    if "### References" not in body:
+        body += f"""
 
 ---\n\n### References
 
 {reference_title} ({today[:4]}) *Accessed via DuckDuckGo*. Available at: <a href="{reference_url}" target="_blank" rel="noopener">{reference_url}</a>
 """
 
-    return dated_title, front_matter + "\n\n" + body + references
+    return dated_title, front_matter + "\n\n" + body
 
 def save_post(filename, content):
     os.makedirs("posts", exist_ok=True)

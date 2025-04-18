@@ -12,9 +12,35 @@ load_dotenv()
 # Set up OpenAI client
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
-    project=os.getenv("OPENAI_PROJECT_ID"),
-    organization=os.getenv("OPENAI_ORG_ID")
+    project=os.getenv("OPENAI_PROJECT_ID", None),
+    organization=os.getenv("OPENAI_ORG_ID", None)
 )
+
+# Keywords for category inference
+category_keywords = {
+    "llm": "LLMs",
+    "language model": "LLMs",
+    "chatgpt": "LLMs",
+    "data": "Data",
+    "analytics": "Data Science",
+    "ethics": "Ethics",
+    "compliance": "Compliance",
+    "training": "Training",
+    "education": "Training",
+    "governance": "Compliance",
+    "ai": "Artificial Intelligence",
+    "artificial intelligence": "Artificial Intelligence",
+    "business": "Business Strategy",
+    "strategy": "Business Strategy",
+}
+
+def infer_categories_from_topic(topic, max_categories=3):
+    topic_lower = topic.lower()
+    matched = set()
+    for keyword, category in category_keywords.items():
+        if keyword in topic_lower:
+            matched.add(category)
+    return list(matched)[:max_categories] if matched else ["Artificial Intelligence", "Technology"]
 
 def get_topic_input():
     return input("Enter blog topic: ")
@@ -53,39 +79,43 @@ def create_image(prompt, filename):
     except Exception as e:
         print(f"❌ Image generation failed: {e}")
 
-def create_markdown(topic, reference_title, reference_url):
+def create_markdown(topic, reference_title, reference_url, ref_body):
     today = datetime.date.today().isoformat()
     safe_title = re.sub(r'[^a-zA-Z0-9-]', '', topic.lower().replace(' ', '-'))
     dated_title = f"{today}-{safe_title}"
     image_file = f"{dated_title}.jpg"
 
     # Generate image
-    image_prompt = f"A photo-realistic landscape-format stock-style image representing: {topic}"
+    image_prompt = f"A realistic, landscape-format stock photo representing: {topic}"
     create_image(image_prompt, image_file)
 
-    # Structured blog writing prompt
+    # Blog content prompt
     prompt = f"""
 Write a structured blog post about "{topic}" using the following format:
 
 ## Background
 - ~250 words
-- Critically introduce the topic
-- Reference this source early: "{reference_title}" ({reference_url})
+- Critically introduce the topic and evaluate this source: "{reference_title}" ({reference_url})
 
-## Challenges
-- ~100-150 words
-- Discuss key challenges, context, developments
-- Use examples if helpful
+## Topic
+- Discuss challenges, key developments, and sector-specific insights
 
 ## Conclusion
-- Wrap up discussing 1 or 2 relevant services (e.g., AI Implementation, Data Governance, Regulatory Compliance, Data Analytics Projects, Capacity Building & Training, or Predictive Modelling)
-- Be insightful, not generic
+- Select 1 or 2 of the following services that are most relevant to the topic:
+  - AI Implementation
+  - Data Governance
+  - Regulatory Compliance
+  - Data Analytics Projects
+  - Capacity Building & Training
+  - Predictive Modelling & Forecasting
+- Explain how they help address the issue, with critical insight
 
-Use Harvard-style citation. Only return markdown content, no YAML or extra formatting.
+Only include a maximum of 3 citations in the entire article.
+Use Harvard-style references. Return only markdown content.
 """
 
     messages = [
-        {"role": "system", "content": "You are a professional business and data science expert focused on structured, insightful long-form posts with Harvard citations. The tone should be that of an expert analyst writing for an informed audience"},
+        {"role": "system", "content": "You are a professional blog writer creating structured, insightful, and critical blog posts with Harvard-style citations."},
         {"role": "user", "content": prompt}
     ]
 
@@ -97,36 +127,53 @@ Use Harvard-style citation. Only return markdown content, no YAML or extra forma
 
     body = response.choices[0].message.content.strip()
 
+    # ✨ Generate excerpt from body content
+    excerpt_prompt = f"""
+Write a clever, enticing, and concise excerpt (max 25 words) for a blog post based on the following content:
+
+\"\"\"{body}\"\"\"
+"""
+
+    excerpt_response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a professional blog writer. Your task is to generate short, smart excerpts for busy professionals."},
+            {"role": "user", "content": excerpt_prompt}
+        ],
+        temperature=0.7
+    )
+
+    excerpt = excerpt_response.choices[0].message.content.strip().replace('"', '').replace('\n', ' ')
+
+    # Generate categories
+    categories = infer_categories_from_topic(topic)
+
+    # Final front matter
     front_matter = f"""---
 title: "{topic}"
-excerpt: "Structured article on {topic}, critically engaging with current trends and grounded in academic or policy reference."
+excerpt: "{excerpt}"
 featuredImage: "./images/{image_file}"
 publishDate: "{today}"
 publish: true
-categories: ["Artificial Intelligence", "Technology"]
+categories: {categories}
 
 seo:
   title: "{topic} - Policy and Innovation"
   description: "Explore {topic} through a critical lens, with action-oriented recommendations."
 ---"""
 
-    # Append clean Harvard-style reference only if GPT didn't include one
+    # Append a fallback Harvard-style citation if GPT doesn't include one
     if "### References" not in body and "## References" not in body:
         access_date = datetime.date.today().strftime("%d %B %Y")
-
-        # Attempt to extract publication year from DuckDuckGo result body
         year_match = re.search(r'\b(20\d{2})\b', ref_body or "")
         pub_year = year_match.group(1) if year_match else today[:4]
-
-        # Infer author from domain or fallback
         domain = re.findall(r"https?://(?:www\.)?([^/]+)", reference_url or "")
         author = domain[0].split('.')[0].capitalize() if domain else "Source"
-
-        # Clean and format the Harvard-style citation
         formatted_ref = f"""
+
 ---\n\n### References
 
-{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url}.
+{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url}. [Accessed {access_date}]
 """
         body += formatted_ref
 
@@ -140,6 +187,6 @@ def save_post(filename, content):
 if __name__ == "__main__":
     topic = get_topic_input()
     ref_title, ref_url, ref_body = fetch_reference(topic)
-    file_slug, post_md = create_markdown(topic, ref_title, ref_url)
+    file_slug, post_md = create_markdown(topic, ref_title, ref_url, ref_body)
     save_post(file_slug, post_md)
     print(f"✅ Blog post saved as posts/{file_slug}.md")

@@ -1,0 +1,23 @@
+Generate 10 insightful blog post topic ideas intended for a professional audience.
+
+Each topic should:
+- Be relevant to at least one of these categories: LLMs, Data Science, Ethics, Compliance, Training, Data, Artificial Intelligence, Business Strategy.
+- Be grounded in one or more of these sectors: healthcare, biopharma, agriculture, or education.
+- Be phrased like a timely and engaging blog title (not overly academic or generic).
+- Cover a variety of themes (e.g. governance, regulation, model use, predictive analytics, bias, strategic implementation).
+- Avoid buzzwords or vague phrasing — instead be specific and plausible.
+
+Each topic must be compatible with a structured blog format that includes:
+- Background and challenges
+- Sector-specific relevance
+- A concluding section that links to 1–2 of the following services:
+  - AI Implementation
+  - Data Governance
+  - Regulatory Compliance
+  - Data Analytics Projects
+  - Capacity Building & Training
+  - Predictive Modelling & Forecasting
+
+Each prompt should be a maximum of 80 characters long including spaces.
+
+**Output the 10 topic ideas as a clean, numbered Markdown list. No extra commentary or formatting — just the titles.**

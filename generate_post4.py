@@ -72,19 +72,20 @@ Write a structured blog post about "{topic}" using the following format:
 - Critically introduce the topic
 - Reference this source early: "{reference_title}" ({reference_url})
 
-## Topic
+## Challenges
+- ~100-150 words
 - Discuss key challenges, context, developments
-- Use examples or bullet points if helpful
+- Use examples if helpful
 
 ## Conclusion
-- Wrap up with 1–2 relevant services (e.g., AI Implementation, Data Governance, Predictive Modelling)
+- Wrap up with 1 or 2 relevant services (e.g., AI Implementation, Data Governance, Predictive Modelling)
 - Be insightful, not generic
 
 Use Harvard-style citation. Only return markdown content, no YAML or extra formatting.
 """
 
     messages = [
-        {"role": "system", "content": "You are a professional technical blog writer focused on structured, insightful long-form posts with Harvard citations."},
+        {"role": "system", "content": "You are a professional business and data science expert focused on structured, insightful long-form posts with Harvard citations. The tone should be that of an expert analyst writing for an informed audience"},
         {"role": "user", "content": prompt}
     ]
 

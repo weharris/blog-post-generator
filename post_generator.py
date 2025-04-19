@@ -5,7 +5,7 @@ import datetime
 import requests
 from openai import OpenAI
 from dotenv import load_dotenv
-from perplexity_reference import fetch_reference_from_perplexity as fetch_reference  # NEW IMPORT ✅
+from perplexity_reference import fetch_reference_from_perplexity as fetch_reference
 
 # Load environment variables
 load_dotenv()
@@ -51,6 +51,15 @@ def create_image(prompt, filename):
     except Exception as e:
         print(f"[Image generation failed] {e}")
 
+def clean_references(text):
+    # Remove leading bullets or symbols
+    text = re.sub(r"^\s*[-•]\s*", "", text, flags=re.MULTILINE)
+    # Remove [Accessed ...] citations
+    text = re.sub(r"\[Accessed.*?\]", "", text)
+    # Remove extra newlines
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
 def create_markdown(topic, reference_title, reference_url, ref_body):
     today = datetime.date.today().isoformat()
     safe_title = re.sub(r'[^a-zA-Z0-9-]', '', topic.lower().replace(' ', '-'))
@@ -76,11 +85,11 @@ Pick 1–2 relevant services below and explain how they help:
 - Capacity Building & Training
 - Predictive Modelling & Forecasting
 
-Use max 3 citations. Use Harvard-style referencing. Return only markdown content.
+Use max 3 citations. Use Harvard-style referencing. Do not use bullet points. No accessed date. Do not include [Accessed ...] in references. Return only markdown content.
 """
 
     messages = [
-        {"role": "system", "content": "You are a professional blog writer creating structured, insightful blog posts with Harvard citations."},
+        {"role": "system", "content": "You are a professional blog writer creating structured, insightful blog posts with consistent Harvard-style citations."},
         {"role": "user", "content": prompt}
     ]
 
@@ -92,7 +101,7 @@ Use max 3 citations. Use Harvard-style referencing. Return only markdown content
 
     body = response.choices[0].message.content.strip()
 
-    # Excerpt generation
+    # Generate excerpt
     excerpt_prompt = f"""Write a clever, enticing excerpt (max 25 words) for this blog post:
 
 \"\"\"{body}\"\"\"
@@ -125,7 +134,6 @@ seo:
     reference_exists = re.search(r"(?i)(#+\s*references|\*\*references\*\*)", body)
 
     if not reference_exists:
-        access_date = datetime.date.today().strftime("%d %B %Y")
         year_match = re.search(r'\b(20\d{2})\b', ref_body or "")
         pub_year = year_match.group(1) if year_match else today[:4]
         domain = re.findall(r"https?://(?:www\.)?([^/]+)", reference_url or "")
@@ -134,11 +142,14 @@ seo:
 
 ---
 
-### References
+## References
 
-{author}, {pub_year}. {reference_title}. [online] Available at: {reference_url}. [Accessed {access_date}]
+{author}, {pub_year}. {reference_title}. *Source*. Available at: <{reference_url}>.
 """
         body += formatted_ref
+
+    # Clean reference block formatting
+    body = clean_references(body)
 
     return dated_title, front_matter + "\n\n" + body
 

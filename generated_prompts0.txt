@@ -1,0 +1,10 @@
+1. What LLMs Are Getting Wrong in Clinical Decision Support — and How to Fix It  
+2. Data Ethics in Agricultural AI: Who Owns the Model That Feeds the World?  
+3. Predictive Modelling in Biopharma: Accelerating Drug Discovery or Compounding Risk?  
+4. When Chatbots Teach: Compliance Challenges of LLMs in Higher Education  
+5. Data Governance in Digital Health: Lessons from Failed Pilots  
+6. Rethinking AI Training for Veterinarians: A Case for AgriTech Upskilling  
+7. AI-Powered Risk Scores in Insurance: Strategic Value or Statistical Overreach?  
+8. Beyond the Hype: Real-World AI Implementation in Public School Systems  
+9. Algorithmic Bias in Crop Optimization: How Business Strategy Shapes Yield Predictions  
+10. From Labs to Labels: The Role of Regulatory Compliance in AI-Driven Biotech Products

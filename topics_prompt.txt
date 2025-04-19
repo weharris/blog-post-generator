@@ -1,4 +1,4 @@
-Generate 10 insightful blog post topic ideas intended for a professional audience.
+Generate 3 insightful blog post topic ideas intended for a professional audience.
 
 Each topic should:
 - Be relevant to at least one of these categories: LLMs, Data Science, Ethics, Compliance, Training, Data, Artificial Intelligence, Business Strategy.
@@ -20,4 +20,4 @@ Each topic must be compatible with a structured blog format that includes:
 
 Each prompt should be a maximum of 80 characters long including spaces.
 
-**Output the 10 topic ideas as a clean, numbered Markdown list. No extra commentary or formatting — just the titles.**
+**Output the topic ideas as a clean, numbered Markdown list. No extra commentary or formatting — just the titles.**

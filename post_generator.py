@@ -44,7 +44,7 @@ category_keywords = {
     "agtech": "Agriculture",
     
     "biopharma": "Biopharma",
-    "healthcare": "Biopharma",
+    "pharmaceutical": "Biopharma",
     "biotech": "Biopharma",
     
     "healthcare": "Healthcare"

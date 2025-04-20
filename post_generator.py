@@ -73,7 +73,7 @@ def create_markdown(topic, reference_title, reference_url, ref_body):
 ## Background
 ~250 words, critically introduce the topic and evaluate this source: "{reference_title}" ({reference_url})
 
-## Topic
+## Challenges and context
 Key challenges, context, developments. Use examples.
 
 ## Conclusion

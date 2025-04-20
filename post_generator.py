@@ -17,12 +17,35 @@ client = OpenAI(
 )
 
 category_keywords = {
-    "llm": "LLMs", "language model": "LLMs", "chatgpt": "LLMs",
-    "data": "Data", "analytics": "Data Science", "ethics": "Ethics",
-    "compliance": "Compliance", "training": "Training", "education": "Training",
-    "governance": "Compliance", "ai": "Artificial Intelligence",
-    "artificial intelligence": "Artificial Intelligence", "business": "Business Strategy",
-    "strategy": "Business Strategy"
+    "llm": "LLMs",
+    "language model": "LLMs",
+    "chatgpt": "LLMs",
+    
+    "data": "Data",
+    "data science": "Data Science",
+    "analytics": "Analytics",
+    
+    "ethics": "Ethics",
+    
+    "compliance": "Compliance",
+    "governance": "Compliance",
+    
+    "training": "Training",
+    "education": "Education",
+    
+    "ai": "Artificial Intelligence",
+    "artificial intelligence": "Artificial Intelligence",
+    
+    "business": "Business Strategy",
+    "strategy": "Business Strategy",
+    
+    "agriculture": "Agriculture",
+    "farming": "Agriculture",
+    "agtech": "Agriculture",
+    
+    "biopharma": "Biopharma",
+    "healthcare": "Biopharma",
+    "biotech": "Biopharma"
 }
 
 def infer_categories_from_topic(topic, max_categories=3):
@@ -73,7 +96,7 @@ def create_markdown(topic, reference_title, reference_url, ref_body):
 ## Background
 ~250 words, critically introduce the topic and evaluate this source: "{reference_title}" ({reference_url})
 
-## Challenges and context
+## Challenges and Developments
 Key challenges, context, developments. Use examples.
 
 ## Conclusion

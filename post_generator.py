@@ -45,7 +45,9 @@ category_keywords = {
     
     "biopharma": "Biopharma",
     "healthcare": "Biopharma",
-    "biotech": "Biopharma"
+    "biotech": "Biopharma",
+    
+    "healthcare": "Healthcare"
 }
 
 def infer_categories_from_topic(topic, max_categories=3):
